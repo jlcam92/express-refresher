@@ -1,0 +1,6 @@
+{
+	"watch": ["."],
+	"ext": "js,json",
+	"exec": "npm run lint && node src/app.js",
+	"ignore": ["node_modules", "dist"]
+}

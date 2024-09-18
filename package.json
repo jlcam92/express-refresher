@@ -1,0 +1,23 @@
+{
+	"name": "express-refresher",
+	"version": "1.0.0",
+	"main": "app.js",
+	"scripts": {
+		"start": "nodemon",
+		"lint": "eslint . "
+	},
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"devDependencies": {
+		"express": "^4.21.0",
+		"nodemon": "^3.1.4"
+	},
+	"dependencies": {
+		"cookie-parser": "^1.4.6",
+		"eslint": "^9.10.0",
+		"express-validator": "^7.2.0",
+		"globals": "^15.9.0",
+		"uuid": "^10.0.0"
+	}
+}
