@@ -6,6 +6,14 @@ exports.requiredUserValidations = {
 	lastName: {
 		exists: { errorMessage: "lastName is required" },
 		isString: { errorMessage: "lastName  must be a string" }
+	},
+	username: {
+		exists: { errorMessage: "username is required" },
+		isString: { errorMessage: "username  must be a string" }
+	},
+	password: {
+		exists: { errorMessage: "password is required" },
+		isString: { errorMessage: "password  must be a string" }
 	}
 };
 
@@ -17,6 +25,14 @@ exports.optionalUserValidations = {
 	lastName: {
 		optional: true,
 		isString: { errorMessage: "lastName must be a string" }
+	},
+	username: {
+		optional: true,
+		isString: { errorMessage: "username  must be a string" }
+	},
+	password: {
+		optional: true,
+		isString: { errorMessage: "password  must be a string" }
 	}
 };
 
@@ -39,5 +55,16 @@ exports.optionalProductValidations = {
 	price: {
 		optional: true,
 		isInt: { errorMessage: "price must be an integer" }
+	}
+};
+
+exports.authValidations = {
+	username: {
+		exists: { errorMessage: "username must exist" },
+		isString: { errorMessage: "username must be a string" }
+	},
+	password: {
+		exists: { errorMessage: "password must exist" },
+		isString: { errorMessage: "password must be a string" }
 	}
 };

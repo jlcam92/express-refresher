@@ -4,7 +4,7 @@
 	"main": "app.js",
 	"scripts": {
 		"start": "nodemon",
-		"lint": "eslint . "
+		"lint": "eslint . --fix"
 	},
 	"author": "",
 	"license": "ISC",
@@ -15,9 +15,14 @@
 	},
 	"dependencies": {
 		"cookie-parser": "^1.4.6",
+		"dotenv": "^16.4.5",
 		"eslint": "^9.10.0",
+		"express-session": "^1.18.0",
 		"express-validator": "^7.2.0",
 		"globals": "^15.9.0",
+		"passport": "^0.7.0",
+		"passport-local": "^1.0.0",
 		"uuid": "^10.0.0"
 	}
 }
+

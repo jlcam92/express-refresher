@@ -1,6 +1,8 @@
 const { Router } = require("express");
 const { checkSchema } = require("express-validator");
 const router = Router();
+const passport = require("passport");
+const isAuth = require("../middlewares/isAuth");
 const {
 	getProducts,
 	getProduct,
@@ -18,16 +20,16 @@ const {
 router
 	.route("/products")
 	.get(getProducts)
-	.post(checkSchema(requiredProductValidations), postProduct)
+	.post(isAuth, checkSchema(requiredProductValidations), postProduct)
 	.all((req, res) => res.status(405).send("Method not allowed"));
 
 router
 	.route("/products/:id")
 	.all(findProductById)
 	.get(getProduct)
-	.patch(checkSchema(optionalProductValidations), patchProduct)
-	.put(checkSchema(requiredProductValidations), putProduct)
-	.delete(deleteProduct)
+	.patch(isAuth, checkSchema(optionalProductValidations), patchProduct)
+	.put(isAuth, checkSchema(requiredProductValidations), putProduct)
+	.delete(isAuth, deleteProduct)
 	.all((req, res) => res.status(405).send("Method not allowed"));
 
 module.exports = router;

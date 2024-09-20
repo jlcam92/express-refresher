@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const { checkSchema } = require("express-validator");
 const router = Router();
+const isAuth = require("../middlewares/isAuth");
 const {
 	getUsers,
 	getUser,
@@ -18,16 +19,16 @@ const {
 router
 	.route("/users")
 	.get(getUsers)
-	.post(checkSchema(requiredUserValidations), postUser)
+	.post(isAuth, checkSchema(requiredUserValidations), postUser)
 	.all((req, res) => res.status(405).send("Method not allowed"));
 
 router
 	.route("/users/:id")
 	.all(findUserById)
 	.get(getUser)
-	.patch(checkSchema(optionalUserValidations), patchUser)
-	.put(checkSchema(requiredUserValidations), putUser)
-	.delete(deleteUser)
+	.patch(isAuth, checkSchema(optionalUserValidations), patchUser)
+	.put(isAuth, checkSchema(requiredUserValidations), putUser)
+	.delete(isAuth, deleteUser)
 	.all((req, res) => res.status(405).send("Method not allowed"));
 
 module.exports = router;
