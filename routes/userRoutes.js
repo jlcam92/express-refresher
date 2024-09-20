@@ -10,7 +10,7 @@ const {
 	putUser,
 	deleteUser
 } = require("../controllers/users");
-const findUserById = require("../middlewares/findUserById");
+// const findUserById = require("../middlewares/findUserById");
 const {
 	requiredUserValidations,
 	optionalUserValidations
@@ -19,16 +19,16 @@ const {
 router
 	.route("/users")
 	.get(getUsers)
-	.post(isAuth, checkSchema(requiredUserValidations), postUser)
+	.post(checkSchema(requiredUserValidations), postUser)
 	.all((req, res) => res.status(405).send("Method not allowed"));
 
 router
 	.route("/users/:id")
-	.all(findUserById)
+	// .all(findUserById)
 	.get(getUser)
-	.patch(isAuth, checkSchema(optionalUserValidations), patchUser)
-	.put(isAuth, checkSchema(requiredUserValidations), putUser)
-	.delete(isAuth, deleteUser)
+	.patch(checkSchema(optionalUserValidations), patchUser)
+	.put(checkSchema(requiredUserValidations), putUser)
+	.delete(deleteUser)
 	.all((req, res) => res.status(405).send("Method not allowed"));
 
 module.exports = router;

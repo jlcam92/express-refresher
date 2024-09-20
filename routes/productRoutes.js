@@ -19,16 +19,16 @@ const {
 router
 	.route("/products")
 	.get(getProducts)
-	.post(isAuth, checkSchema(requiredProductValidations), postProduct)
+	.post(checkSchema(requiredProductValidations), postProduct)
 	.all((req, res) => res.status(405).send("Method not allowed"));
 
 router
 	.route("/products/:id")
 	.all(findProductById)
 	.get(getProduct)
-	.patch(isAuth, checkSchema(optionalProductValidations), patchProduct)
-	.put(isAuth, checkSchema(requiredProductValidations), putProduct)
-	.delete(isAuth, deleteProduct)
+	.patch(checkSchema(optionalProductValidations), patchProduct)
+	.put(checkSchema(requiredProductValidations), putProduct)
+	.delete(deleteProduct)
 	.all((req, res) => res.status(405).send("Method not allowed"));
 
 module.exports = router;
