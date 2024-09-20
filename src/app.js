@@ -1,10 +1,10 @@
 require("dotenv").config();
+require("../strategies/local-strategy");
 const express = require("express");
 const routes = require("../routes");
 const cookieParser = require("cookie-parser");
 const loggingMiddleware = require("../middlewares/loggingMiddleware");
 const sessionLogger = require("../middlewares/sessionLogger");
-const localStrategy = require("../strategies/local-strategy");
 const session = require("express-session");
 const passport = require("passport");
 const app = express();

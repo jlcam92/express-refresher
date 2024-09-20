@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const { checkSchema } = require("express-validator");
 const router = Router();
-const passport = require("passport");
 const isAuth = require("../middlewares/isAuth");
 const {
 	getProducts,
