@@ -8,7 +8,8 @@ module.exports = [
 		ignores: ["node_modules", "dist"], // Ignore specific folders
 		languageOptions: {
 			globals: {
-				...globals.node
+				...globals.node,
+				...globals.jest
 			}
 		},
 		rules: {

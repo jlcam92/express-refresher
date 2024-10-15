@@ -1,8 +1,9 @@
 const { validationResult, matchedData } = require("express-validator");
 const User = require("../models/user");
+const { hashPassword } = require("../utils/helpers");
 // const db = require("../utils/readDb");
 // const writeToDb = require("../utils/writeToDb");
-const { v4: uuidv4 } = require("uuid");
+// const { v4: uuidv4 } = require("uuid");
 
 exports.getUsers = async (req, res) => {
 	try {
@@ -23,7 +24,11 @@ exports.getUser = async (req, res) => {
 	try {
 		// const { foundUserIndex } = req;
 		// res.status(200).json(db.users[foundUserIndex]);
-		res.status(200).json(await User.findById(req.params.id));
+		const user = await User.findById(req.params.id).select("-__v");
+		if (!user) {
+			return res.status(404).send("User not found");
+		}
+		res.status(200).json(user);
 	} catch (e) {
 		res.status(500).json({ error: e.message });
 	}
@@ -38,7 +43,8 @@ exports.postUser = async (req, res) => {
 		const data = matchedData(req);
 		// db.users.push({ id: uuidv4(), ...data });
 		// writeToDb(db);
-		await User.create(data);
+		const user = { ...data, password: await hashPassword(data.password) };
+		await User.create(user);
 		res.status(201).end();
 	} catch (e) {
 		res.status(500).json({ error: e.message });
@@ -53,7 +59,7 @@ exports.patchUser = async (req, res) => {
 			return res.status(400).json(validationErrors.array());
 		}
 		const data = matchedData(req);
-		console.log(data);
+		if (data.password) data.password = await hashPassword(data.password);
 		await User.updateOne({ _id: req.params.id }, { $set: { ...data } });
 		// db.users[foundUserIndex] = { ...db.users[foundUserIndex], ...data };
 		// writeToDb(db);
@@ -81,7 +87,7 @@ exports.putUser = async (req, res) => {
 				$set: {
 					firstName: data.firstName,
 					lastName: data.lastName,
-					password: data.password
+					password: await hashPassword(data.password)
 				}
 			}
 		);
